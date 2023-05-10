@@ -43,6 +43,17 @@ void loop() { //  main code here, to runs repeatedly
     // button has been pressed!
     servoActivated = !servoActivated; // flip servo  state only once
     isAwaitingButtonPress = false; 
+    if (servoActivated){
+      myservo.write(thisAngle);
+      delay(1500);
+      otherservo.write(40);
+      isOn = true;
+    } else {
+      myservo.write(0);
+      delay(1500);
+      otherservo.write(0);
+      isOn = false;
+    }
   } else if (newLightValue > 200) { // start awaiting next press
     isAwaitingButtonPress = true;
     buttonPressed = false;
@@ -52,17 +63,7 @@ void loop() { //  main code here, to runs repeatedly
   // int mappedLight = map (newLightValue, 0, 1023, 0, 180);
 
   // control the servo motor based on the light value read, adjust linearly by angles 
-  if (servoActivated){
-    myservo.write(thisAngle);
-    delay(1500);
-    otherservo.write(40);
-    isOn = true;
-  } else {
-    myservo.write(0);
-    delay(1500);
-    otherservo.write(0);
-    isOn = false;
-  }
+  
   
   // Print values.
   // send values out serial port as a JSON string,
